@@ -9,6 +9,10 @@
 
 #define MAX_CONN 1
 
+extern void service_init(int fd);
+extern int service_do(int fd);
+extern void service_exit(int fd);
+
 void find_new_fdmax(int *fdmax, fd_set *master);
 
 int main(int argc, char *argv[]) {

@@ -32,6 +32,8 @@ int main(int argc, char *argv[]) {
   char *port = "8080";
   if (argc == 2) {
     port = argv[1];
+  } else {
+    printf("Used Default Port: %s\n", port);
   }
 
   memset(&hints, 0, sizeof(struct addrinfo));
@@ -121,10 +123,10 @@ int main(int argc, char *argv[]) {
 
 void find_new_fdmax(int *fdmax, fd_set *master) {
   int max = 0;
-  for (int j = 0; j < (*fdmax); j++) {
-    if (FD_ISSET(j, master) && // get new maximum
-        (j > max)) {
+  for (int j = (*fdmax); j >= 0; j--) {
+    if (FD_ISSET(j, master)) {
       max = j;
+      break;
     }
   }
   (*fdmax) = max;
